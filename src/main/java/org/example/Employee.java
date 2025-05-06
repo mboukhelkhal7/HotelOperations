@@ -7,6 +7,7 @@ public class Employee {
     private String department;
     private double payRate;
     private double hoursWorked;
+    private boolean isPunchedIn;
 
     public Employee(int employeeId, String name, String department, double payRate, double hoursWorked) {
         this.employeeId = employeeId;
@@ -14,6 +15,8 @@ public class Employee {
         this.department = department;
         this.payRate = payRate;
         this.hoursWorked = hoursWorked;
+        this.isPunchedIn = false;
+
     }
 
     public int getEmployeeId() {
@@ -75,5 +78,24 @@ public class Employee {
     public double getTotalPay() {
         return getRegularPay() + getOvertimePay();
     }
+
+    private double punchInTime;
+
+    public void punchIn(double time) {
+        if (isPunchedIn == false) {
+            this.punchInTime = time;
+            this.isPunchedIn = true;
+        }
+    }
+    public void punchOut(double time) {
+        if (isPunchedIn == true) {
+            double worked = time - punchInTime;
+            if (worked > 0) {
+                this.hoursWorked += worked;
+            }
+            this.isPunchedIn = false;
+        }
+    }
+
 
 }

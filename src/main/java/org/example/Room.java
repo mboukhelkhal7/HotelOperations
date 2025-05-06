@@ -29,6 +29,11 @@ public class Room {
     public boolean isDirty() {
         return dirty;
     }
+    public boolean isAvailable() { if (occupied == false && dirty == false) {
+        return true;
+    } else {
+        return false;
+    } }
 
     public void setNumberOfBeds(int numberOfBeds) {
         this.numberOfBeds = numberOfBeds;
@@ -44,5 +49,22 @@ public class Room {
 
     public void setDirty(boolean dirty) {
         this.dirty = dirty;
+    }
+    public void checkIn() {
+       if (occupied == false && dirty == false) {
+           this.occupied = true;
+           this.dirty = true;
+       }
+    }
+    public void checkout() {
+        if (occupied) {
+            this.occupied = false;
+            this.dirty = true;
+        }
+    }
+    public void cleanRoom() {
+        if (occupied == false && dirty == true) {
+            this.dirty = false;
+        }
     }
 }
