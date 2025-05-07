@@ -1,5 +1,7 @@
 package org.example;
 
+import java.time.LocalDateTime;
+
 public class Employee {
 
     private int employeeId;
@@ -81,21 +83,41 @@ public class Employee {
 
     private double punchInTime;
 
-    public void punchIn(double time) {
-        if (isPunchedIn == false) {
-            this.punchInTime = time;
-            this.isPunchedIn = true;
-        }
-    }
-    public void punchOut(double time) {
-        if (isPunchedIn == true) {
-            double worked = time - punchInTime;
-            if (worked > 0) {
-                this.hoursWorked += worked;
+    public void punchIn(Double time) {
+        if (!isPunchedIn) {
+            if (time == null) {
+                LocalDateTime now = LocalDateTime.now();
+                punchInTime = now.getHour() + now.getMinute() / 60.0;
+                System.out.println(name + " punched in at " + now.getHour() + ":" + now.getMinute());
+            } else {
+                punchInTime = time;
+                System.out.println(name + " punched in manually at time: " + time);
             }
-            this.isPunchedIn = false;
+            isPunchedIn = true;
+        } else {
+            System.out.println(name + " is already punched in.");
         }
     }
 
+    public void punchOut(Double time) {
+        if (isPunchedIn) {
+            double punchOutTime;
+            if (time == null) {
+                LocalDateTime now = LocalDateTime.now();
+                punchOutTime = now.getHour() + now.getMinute() / 60.0;
+            } else {
+                punchOutTime = time;
+            }
+
+            double worked = punchOutTime - punchInTime;
+            if (worked > 0) {
+                hoursWorked += worked;
+                System.out.println(name + " worked: " + worked + " hours");
+            }
+            isPunchedIn = false;
+        } else {
+            System.out.println(name + " hasn't punched in yet.");
+        }
+    }
 
 }
