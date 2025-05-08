@@ -14,6 +14,10 @@ public class Room {
         this.dirty = dirty;
     }
 
+    public Room() {
+
+    }
+
     public int getNumberOfBeds() {
         return numberOfBeds;
     }
@@ -67,4 +71,7 @@ public class Room {
             this.dirty = false;
         }
     }
+
+
+
 }
